@@ -108,11 +108,53 @@ std::string PlayfairCipher::applyCipher(const std::string& inputText, const Ciph
 
     std::transform(inputText.begin(), inputText.end(), inputText.begin(), jtoi);
 
+    std::string examinedDigraphs{""};
+
     // If repeated chars in a digraph add an X or Q if XX
+    // Look at each character in inputText
+    // If the character before is the same as the current one, replace with X + current character
+    // If both the characters are XX, replace with QX.
+    for (std::size_t i{0}; i < inputText.size(); i++){
+        // only doing something on every second letter
+        if (i == 1 % 2){
+            // checking if there are pairs of repeated letters
+            if (inputText[i] == inputText[i-1]){
+                // if the repeated letters are XX, populate examinedDigrahs with QX
+                if (inputText[i] == 'X'){
+                    examinedDigraphs+= "QX";
+                    
+                }
+                // if the repeated letters are not XX, populate examinedDigraphs with X(letter)
+                else{
+                    examinedDigraphs+= "X";
+                    examinedDigraphs+= inputText[i];
+                    
+
+                }
+            }
+            // if the pair are not the same letter, populate examinedDigraphs with the letters
+            else{
+                examinedDigraphs+= inputText[i-1];
+                examinedDigraphs+= inputText[i];
+                
+            }
 
 
+        }
+    }
+
+
+    // If the length of inputText is odd, then the above loop did not add the last letter to examinedDigraphs.
+    // We need to add this letter and a Z to examinedDigraphs
     // if the size of input is odd, add a trailing Z
+    if (inputText.size() == 1 % 2){
+        examinedDigraphs+= inputText[inputText.size()-1];
+        examinedDigraphs+= "Z";
+    }
+
+
     // Loop over the input in Digraphs
+
     //- Find the coords in the grid for each digraph
     //- Apply the rules to these coords to get 'new' coords
     //- Find the letter associated with the new coords
