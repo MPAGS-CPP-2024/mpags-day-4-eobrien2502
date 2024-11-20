@@ -152,6 +152,26 @@ std::string PlayfairCipher::applyCipher(const std::string& inputText, const Ciph
         examinedDigraphs+= "Z";
     }
 
+    // Comments about my code to be looked at whilst giving feedback:
+    // I am aware that my code above would not put the letters into the right pairs. 
+    // HELLO WORLD would become HE XL OW OR DL
+    // when it should become HE LX LO WO RL DZ
+    // But i can't find a way to get the splitting into digraphs right every single time. 
+    // When you add the X to separate repeated letters, you add an odd number of letters 
+    // to the string and therefore you change what letters are paired together 
+    // E.g. if you were to pair HELLO W before consiering repeated letters you would get HE LL OW
+    // But when you add the x to separate the Ls you get HE LX LO W.....
+    // I'm not sure how to combat this with a loop that uses indices. 
+    // I also think I need some clrification about how teh cipher works
+    // Do we separate any repeated letters with an X before putting the string into digraphs?
+    // e.g HEEL becomes HEXEL becomes HE XE LZ.
+    // Or do we first split into digraphs and then add the Xs if the repeating letters are in the same digraph 
+    // and therefore change the digraphs at this point
+    // e.g HEEL becomes HE EL and there is no problem with that because the Es aren't in the same digraph.
+
+    // I'd be grateful for some feedback and answers to my questions
+
+
 
     // Loop over the input in Digraphs
 
